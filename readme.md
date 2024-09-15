@@ -17,6 +17,5 @@
 
 1. HTML
 2. CSS
-3. Bootstarp
-4. JavaScript
-5. Python - Flask
+3. JavaScript
+4. Python - Flask
