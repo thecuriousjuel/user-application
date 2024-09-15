@@ -34,7 +34,7 @@ def create_db_schema():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT UNIQUE NOT NULL,
                 password TEXT NOT NULL,
-                savetime DATETIME
+                history DATETIME
             );"""
     try:
         cursor.execute(query)
@@ -53,7 +53,8 @@ def get_current_date_and_time():
 def write_to_database(username, password, current_date_and_time):
     connection = db.connect(PATH)
     cursor = connection.cursor()
-    query = """INSERT INTO users (username, password, savetime) VALUES (?, ?, ?);"""
+    message = ''
+    query = """INSERT INTO users (username, password, history) VALUES (?, ?, ?);"""
     try:
         cursor.execute(query, (username, password, current_date_and_time))
         connection.commit()
@@ -70,15 +71,28 @@ def write_to_database(username, password, current_date_and_time):
     return message
 
 
-
 def save_to_database(username, password):
     create_database_folder()
     create_database()
     create_db_schema()
     current_date_and_time = get_current_date_and_time()
-
     db_response = write_to_database(username, password, current_date_and_time)
     return db_response
+
+def fetch_all_user_details_from_database():
+    connection = db.connect(PATH)
+    cursor = connection.cursor()
+    data_dict = []
+    query = """SELECT username, history FROM users;"""
+    try:
+        cursor.execute(query)
+        rows = cursor.fetchall()
+        data_dict = [{"username": item[0], "timestamp": item[1]} for item in rows]
+    except Exception as exception_message:
+        print(f"Error fetching records: {exception_message}")
+    finally:
+        connection.close()
+    return data_dict
 
 if __name__ == '__main__':
     save_to_database('Bob78', '123')

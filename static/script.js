@@ -19,18 +19,20 @@ function clearStatus() {
 }
 
 function fetchFromURL(url, request) {
-    fetch(url, request)
+    return fetch(url, request)
         .then(response => response.json())
         .then(data => {
-            const message = data['message']
-            setStatus(message)
+            const message = data['message'];
+            const payload = data['payload'];
+            setStatus(message);
+            return payload;  
         })
         .catch(error => {
-            fetchFromURL('Some error occured!')
+            setStatus('Some error has occured!')
             console.log(`Error fetching data: ${error}`);
         });
-    
 }
+
 function submitFunction(event) {
     event.preventDefault();
     const usernameValue = username.value;
@@ -55,6 +57,23 @@ function submitFunction(event) {
         body: requestPaylondInString
     };
     const url = '/submitUserData';
-    const response = fetchFromURL(url, request);
-    // console.log(response);
+    fetchFromURL(url, request);
 }
+
+function getAllUserDetails(){
+    const url = '/getAllUserDetails';
+    const request = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
+
+    fetchFromURL(url, request)
+    .then(payload =>{
+        
+    })
+    
+}
+
+getAllUserDetails()
