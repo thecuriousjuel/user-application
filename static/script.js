@@ -26,7 +26,8 @@ function fetchFromURL(url, request) {
             setStatus(message)
         })
         .catch(error => {
-            setStatus(`Error fetching data: ${error}`);
+            fetchFromURL('Some error occured!')
+            console.log(`Error fetching data: ${error}`);
         });
     
 }

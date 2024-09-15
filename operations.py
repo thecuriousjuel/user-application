@@ -1,5 +1,8 @@
 import sqlite3 as db
 import os
+from datetime import datetime
+from datetime import timezone
+from datetime import timedelta
 
 DATABASE_FOLDER_NAME = 'database'
 DATABASE_NAME = 'users.db'
@@ -30,7 +33,8 @@ def create_db_schema():
             CREATE TABLE users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT UNIQUE NOT NULL,
-                password TEXT NOT NULL
+                password TEXT NOT NULL,
+                savetime DATETIME
             );"""
     try:
         cursor.execute(query)
@@ -41,29 +45,39 @@ def create_db_schema():
     finally:
         connection.close()
 
+def get_current_date_and_time():
+    current_date_and_time = datetime.now(timezone(timedelta(hours=5, minutes=30)))
+    formatted_time = current_date_and_time.strftime('%Y-%m-%d %H:%M:%S%z')
+    return formatted_time
 
-def write_to_database(username, password):
+def write_to_database(username, password, current_date_and_time):
     connection = db.connect(PATH)
     cursor = connection.cursor()
-    query = """INSERT INTO users (username, password) VALUES (?, ?);"""
+    query = """INSERT INTO users (username, password, savetime) VALUES (?, ?, ?);"""
     try:
-        cursor.execute(query, (username, password))
+        cursor.execute(query, (username, password, current_date_and_time))
         connection.commit()
         message = f"User `{username}` is saved in the Database."
     except Exception as exception_message:
         print(f'write_to_database: {exception_message}')
-        message = f"User `{username}` already exists in the Database."
+        if 'exists' in str(exception_message):
+            message = f"User `{username}` already exists in the Database."
+        else:
+            message = f"Some error has occured!"
     finally:
         print(message)
         connection.close()
     return message
 
 
+
 def save_to_database(username, password):
     create_database_folder()
     create_database()
     create_db_schema()
-    db_response = write_to_database(username, password)
+    current_date_and_time = get_current_date_and_time()
+
+    db_response = write_to_database(username, password, current_date_and_time)
     return db_response
 
 if __name__ == '__main__':
