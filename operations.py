@@ -60,7 +60,7 @@ def write_to_database(username, password, current_date_and_time):
         message = f"User `{username}` is saved in the Database."
     except Exception as exception_message:
         print(f'write_to_database: {exception_message}')
-        if 'exists' in str(exception_message):
+        if 'UNIQUE' in str(exception_message):
             message = f"User `{username}` already exists in the Database."
         else:
             message = f"Some error has occured!"

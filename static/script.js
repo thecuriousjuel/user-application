@@ -11,11 +11,11 @@ password.addEventListener('focus', clearStatus)
 
 // Functions
 function setStatus(message) {
-    statusBar.innerText = message;
+    statusBar.innerText = 'Status: ' + message;
 }
 
 function clearStatus() {
-    statusBar.innerText = ''
+    statusBar.innerText = 'Status:'
 }
 
 function fetchFromURL(url, request) {
