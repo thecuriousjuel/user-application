@@ -17,7 +17,6 @@ def create_database():
     connection = db.connect(PATH)
     db_create_status = connection.total_changes
     connection.close()
-
     if db_create_status == 0:
         print('Database creation successful')
     else:
@@ -35,6 +34,7 @@ def create_db_schema():
             );"""
     try:
         cursor.execute(query)
+        connection.commit()
         print('Table created')
     except db.OperationalError as exception_message:
         print(f'create_db_schema: {exception_message}')
@@ -48,18 +48,23 @@ def write_to_database(username, password):
     query = """INSERT INTO users (username, password) VALUES (?, ?);"""
     try:
         cursor.execute(query, (username, password))
-        print('Successfully written to Database', connection.total_changes)
+        connection.commit()
+        message = f"User `{username}` is saved in the Database."
     except Exception as exception_message:
         print(f'write_to_database: {exception_message}')
+        message = f"User `{username}` already exists in the Database."
     finally:
+        print(message)
         connection.close()
+    return message
 
 
 def save_to_database(username, password):
     create_database_folder()
     create_database()
     create_db_schema()
-    write_to_database(username, password)
+    db_response = write_to_database(username, password)
+    return db_response
 
-
-save_to_database('Bob', '123')
+if __name__ == '__main__':
+    save_to_database('Bob78', '123')

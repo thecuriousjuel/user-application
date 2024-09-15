@@ -15,8 +15,8 @@ def submit_user_data():
     user_data = request.get_json()
     username = user_data['username']
     password = user_data['password']
-    save_to_database(username, password)
-    return jsonify({'message': 'Data received successfully'})
+    db_response = save_to_database(username, password)
+    return jsonify({'message': db_response})
 
 if __name__ == '__main__':
     app.run(debug=True)

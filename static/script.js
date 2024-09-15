@@ -22,10 +22,11 @@ function fetchFromURL(url, request) {
     fetch(url, request)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            const message = data['message']
+            setStatus(message)
         })
         .catch(error => {
-            console.error('Error fetching data:', error);
+            setStatus(`Error fetching data: ${error}`);
         });
     
 }
