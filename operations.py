@@ -63,6 +63,7 @@ def create_db_schema():
     finally:
         connection.close()
 
+
 def get_current_date_and_time():
     """
     This function gets the current date and time.
@@ -70,6 +71,7 @@ def get_current_date_and_time():
     current_date_and_time = datetime.now(timezone(timedelta(hours=5, minutes=30)))
     formatted_time = current_date_and_time.strftime('%Y-%m-%d %H:%M:%S%z')
     return formatted_time
+
 
 def write_to_database(username, password, current_date_and_time):
     """
@@ -104,6 +106,7 @@ def save_to_database(username, password):
     db_response = write_to_database(username, password, current_date_and_time)
     return db_response
 
+
 def initialize():
     """
     This function invokes other function which creates the database folder if not found,
@@ -132,6 +135,7 @@ def fetch_all_user_details_from_database():
     finally:
         connection.close()
     return data_dict
+
 
 if __name__ == '__main__':
     save_to_database('Bob78', '123')

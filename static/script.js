@@ -19,12 +19,14 @@ function setStatus(message) {
     statusBar.innerText = 'Status: ' + message;
 }
 
+
 function clearStatus() {
     /**
      * This function is used to change the status to default status message.
      */
     statusBar.innerText = 'Status: ' + 'Enter Username and Password!'
 }
+
 
 function fetchFromURL(url, request) {
     /**
@@ -48,6 +50,7 @@ function fetchFromURL(url, request) {
             // console.log(`Error fetching data: ${error}`);
         });
 }
+
 
 function submitFunction(event) {
     /**
@@ -80,6 +83,7 @@ function submitFunction(event) {
         fetchFromURL(url, request);
     }
 }
+
 
 function getAllUserDetails() {
     /**
