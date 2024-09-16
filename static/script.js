@@ -60,7 +60,6 @@ function submitFunction(event) {
     };
     const url = '/submitUserData';
     fetchFromURL(url, request);
-    
 }
 
 function getAllUserDetails(){
