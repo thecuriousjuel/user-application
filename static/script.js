@@ -17,7 +17,7 @@ function setStatus(message) {
 }
 
 function clearStatus() {
-    statusBar.innerText = 'Status:'
+    statusBar.innerText = 'Status: ' + 'Enter Username and Password!'
 }
 
 function fetchFromURL(url, request) {
@@ -27,7 +27,7 @@ function fetchFromURL(url, request) {
             const message = data['message'];
             const payload = data['payload'];
             setStatus(message);
-            return payload;  
+            return payload;
         })
         .catch(error => {
             setStatus('Some error has occured!')
@@ -49,20 +49,22 @@ function submitFunction(event) {
         console.log(msg);
         setStatus(msg);
     }
-    const requestPaylond = { username: usernameValue, password: passwordValue }
-    const requestPaylondInString = JSON.stringify(requestPaylond)
-    request = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: requestPaylondInString
-    };
-    const url = '/submitUserData';
-    fetchFromURL(url, request);
+    else {
+        const requestPaylond = { username: usernameValue, password: passwordValue }
+        const requestPaylondInString = JSON.stringify(requestPaylond)
+        request = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: requestPaylondInString
+        };
+        const url = '/submitUserData';
+        fetchFromURL(url, request);
+    }
 }
 
-function getAllUserDetails(){
+function getAllUserDetails() {
     const url = '/getAllUserDetails';
     const request = {
         method: "GET",
@@ -72,18 +74,18 @@ function getAllUserDetails(){
     };
 
     fetchFromURL(url, request)
-    .then(payload =>{
-        payload.forEach(arr => {
-            const tableRowElement = document.createElement('tr');
-            const usernameElement = document.createElement('td');
-            const dateTimeElement = document.createElement('td');
+        .then(payload => {
+            payload.forEach(arr => {
+                const tableRowElement = document.createElement('tr');
+                const usernameElement = document.createElement('td');
+                const dateTimeElement = document.createElement('td');
 
-            usernameElement.textContent = arr['username'];
-            dateTimeElement.textContent = arr['datetime'];
+                usernameElement.textContent = arr['username'];
+                dateTimeElement.textContent = arr['datetime'];
 
-            tableRowElement.appendChild(usernameElement);
-            tableRowElement.appendChild(dateTimeElement);
-            tableBody.appendChild(tableRowElement)
+                tableRowElement.appendChild(usernameElement);
+                tableRowElement.appendChild(dateTimeElement);
+                tableBody.appendChild(tableRowElement)
+            })
         })
-    })
 }
