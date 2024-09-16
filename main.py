@@ -1,3 +1,6 @@
+"""
+The starting point of the flask application containing the api routes.
+"""
 from flask import Flask
 from flask import render_template
 from flask import jsonify
@@ -9,10 +12,17 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def homepage():
+    """
+    Renders the homepage of the application.
+    """
     return render_template('index.html')
 
 @app.route('/submitUserData', methods=['POST'])
 def submit_user_data():
+    """
+    Gets the data from the request (frontend) and saves
+    in the database. 
+    """
     user_data = request.get_json()
     username = user_data['username']
     password = user_data['password']
@@ -21,6 +31,9 @@ def submit_user_data():
 
 @app.route('/getAllUserDetails')
 def get_all_user_details():
+    """
+    Gets all the users that are saved in the database.
+    """
     user_data = fetch_all_user_details_from_database()
     return jsonify({'payload':user_data})
 
