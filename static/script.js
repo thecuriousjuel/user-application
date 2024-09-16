@@ -26,12 +26,17 @@ function fetchFromURL(url, request) {
         .then(data => {
             const message = data['message'];
             const payload = data['payload'];
-            setStatus(message);
+            if (message) {
+                setStatus(message);
+            }
+            else {
+                clearStatus();
+            }
             return payload;
         })
         .catch(error => {
             setStatus('Some error has occured!')
-            console.log(`Error fetching data: ${error}`);
+            // console.log(`Error fetching data: ${error}`);
         });
 }
 
@@ -41,12 +46,12 @@ function submitFunction(event) {
     const passwordValue = password.value;
     if (!usernameValue) {
         msg = 'No Username provided.';
-        console.log(msg);
+        // console.log(msg);
         setStatus(msg);
     }
     else if (!passwordValue) {
         msg = 'No Password provided.';
-        console.log(msg);
+        // console.log(msg);
         setStatus(msg);
     }
     else {

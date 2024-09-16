@@ -22,7 +22,7 @@ def submit_user_data():
 @app.route('/getAllUserDetails')
 def get_all_user_details():
     user_data = fetch_all_user_details_from_database()
-    return jsonify({'payload':user_data, 'message': 'Enter Username and Password!'})
+    return jsonify({'payload':user_data})
 
 if __name__ == '__main__':
     app.run(debug=True)
