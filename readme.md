@@ -19,3 +19,4 @@
 2. CSS
 3. JavaScript
 4. Python - Flask
+5. SQLite
