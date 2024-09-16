@@ -2,12 +2,14 @@
 const username = document.querySelector('.username');
 const password = document.querySelector('.password');
 const submitButton = document.querySelector('.submit');
-const statusBar = document.querySelector('.status')
+const statusBar = document.querySelector('.status');
+const tableBody = document.querySelector('.table-body');
 
 // Event Listeners
 submitButton.addEventListener('click', submitFunction)
 username.addEventListener('focus', clearStatus)
 password.addEventListener('focus', clearStatus)
+document.addEventListener('DOMContentLoaded', getAllUserDetails)
 
 // Functions
 function setStatus(message) {
@@ -58,6 +60,7 @@ function submitFunction(event) {
     };
     const url = '/submitUserData';
     fetchFromURL(url, request);
+    
 }
 
 function getAllUserDetails(){
@@ -71,9 +74,17 @@ function getAllUserDetails(){
 
     fetchFromURL(url, request)
     .then(payload =>{
-        
-    })
-    
-}
+        payload.forEach(arr => {
+            const tableRowElement = document.createElement('tr');
+            const usernameElement = document.createElement('td');
+            const dateTimeElement = document.createElement('td');
 
-getAllUserDetails()
+            usernameElement.textContent = arr['username'];
+            dateTimeElement.textContent = arr['datetime'];
+
+            tableRowElement.appendChild(usernameElement);
+            tableRowElement.appendChild(dateTimeElement);
+            tableBody.appendChild(tableRowElement)
+        })
+    })
+}

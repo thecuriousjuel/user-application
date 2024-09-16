@@ -10,7 +10,7 @@
 4. The application should be able to display a success message for a successful save. 
 5. The application should be able to display a failure message for any unsuccessful save.
 6. The application should be able to fetch the already existing users from the backend.
-7. The application should be able to display the already existsing users in the frontend.
+7. The application should be able to display the already existing users in the frontend.
 8. The application should also be able to save the date and time when the user got saved.
 
 ## Technology

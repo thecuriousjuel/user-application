@@ -87,7 +87,7 @@ def fetch_all_user_details_from_database():
     try:
         cursor.execute(query)
         rows = cursor.fetchall()
-        data_dict = [{"username": item[0], "timestamp": item[1]} for item in rows]
+        data_dict = [{"username": item[0], "datetime": item[1]} for item in rows]
     except Exception as exception_message:
         print(f"Error fetching records: {exception_message}")
     finally:

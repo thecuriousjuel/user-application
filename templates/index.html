@@ -12,7 +12,7 @@
     <div class="main-container">
         <div class="status">Status:</div>
         <div class="form-container">
-            <form method="get">
+            <form method="get" autocomplete="off">
                 <div class="input-container">
                     <label for="username">Username</label>
                     <input type="text" class="username">
@@ -21,14 +21,17 @@
                     <button class="submit">Submit</button>
                 </div>
             </form>
+        </div>
+        <div class="table-container">
             <table>
-                <tr>
-                    <thead>User</thead>
-                    <thead>Saved On</thead>
-                </tr>
-                <tr>
-                    <td>hi</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Saved Date and Time</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                </tbody>
             </table>
         </div>
     </div>
