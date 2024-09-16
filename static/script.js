@@ -13,14 +13,23 @@ document.addEventListener('DOMContentLoaded', getAllUserDetails)
 
 // Functions
 function setStatus(message) {
+    /**
+     * This function is used to set the status message.
+     */
     statusBar.innerText = 'Status: ' + message;
 }
 
 function clearStatus() {
+    /**
+     * This function is used to change the status to default status message.
+     */
     statusBar.innerText = 'Status: ' + 'Enter Username and Password!'
 }
 
 function fetchFromURL(url, request) {
+    /**
+     * This function queries and returns response from the server.
+     */
     return fetch(url, request)
         .then(response => response.json())
         .then(data => {
@@ -41,28 +50,31 @@ function fetchFromURL(url, request) {
 }
 
 function submitFunction(event) {
+    /**
+     * This function is used to send data to the backend.
+     */
     event.preventDefault();
     const usernameValue = username.value;
     const passwordValue = password.value;
     if (!usernameValue) {
-        msg = 'No Username provided.';
+        const msg = 'No Username provided.';
         // console.log(msg);
         setStatus(msg);
     }
     else if (!passwordValue) {
-        msg = 'No Password provided.';
+        const msg = 'No Password provided.';
         // console.log(msg);
         setStatus(msg);
     }
     else {
-        const requestPaylond = { username: usernameValue, password: passwordValue }
-        const requestPaylondInString = JSON.stringify(requestPaylond)
-        request = {
+        const requestPayload = { username: usernameValue, password: passwordValue }
+        const requestPayloadInString = JSON.stringify(requestPayload)
+        const request = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: requestPaylondInString
+            body: requestPayloadInString
         };
         const url = '/submitUserData';
         fetchFromURL(url, request);
@@ -70,6 +82,9 @@ function submitFunction(event) {
 }
 
 function getAllUserDetails() {
+    /**
+     * This function is used to fetch all the users from the backend.
+     */
     const url = '/getAllUserDetails';
     const request = {
         method: "GET",
