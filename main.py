@@ -7,6 +7,7 @@ from flask import jsonify
 from flask import request
 from operations import save_to_database
 from operations import fetch_all_user_details_from_database
+from operations import initialize
 
 app = Flask(__name__)
 
@@ -38,4 +39,5 @@ def get_all_user_details():
     return jsonify({'payload':user_data})
 
 if __name__ == '__main__':
+    initialize()
     app.run(debug=True)

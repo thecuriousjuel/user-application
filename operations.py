@@ -97,16 +97,22 @@ def write_to_database(username, password, current_date_and_time):
 
 def save_to_database(username, password):
     """
+    This function gets the current date and time and write the user information 
+    in the database.
+    """
+    current_date_and_time = get_current_date_and_time()
+    db_response = write_to_database(username, password, current_date_and_time)
+    return db_response
+
+def initialize():
+    """
     This function invokes other function which creates the database folder if not found,
-    creates the database file if not present, creates the table schema, gets the current
-    date and time and write the user information in the database.
+    creates the database file if not present, creates the table schema.
     """
     create_database_folder()
     create_database()
     create_db_schema()
-    current_date_and_time = get_current_date_and_time()
-    db_response = write_to_database(username, password, current_date_and_time)
-    return db_response
+
 
 def fetch_all_user_details_from_database():
     """
